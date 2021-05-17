@@ -7,7 +7,7 @@ import retrofit2.http.Query
 
 interface RedditTopApi {
     @GET("/top.json")
-    fun getPics(
+    fun getTopApiThumbnail(
         @Query("limit") limit: String,
         @Query("after") after: String
     ): Single<RedditTopModel>
