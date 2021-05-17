@@ -10,13 +10,13 @@ Stack that was used:
 - Koin
 - AndroidX
 - Retrofit2.0
-- RxJava
+- RxJava2
+- RecycleView
 - MVVM
 - LiveData
 - GLide
 - Android ViewModel
 - Mockk
 - Android JetPack
-- Android Arch Lifecycle
 - SwipeRefreshLayout
 - Endless Scrolling
