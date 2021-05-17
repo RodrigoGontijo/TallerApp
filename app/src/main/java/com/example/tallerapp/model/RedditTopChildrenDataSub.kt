@@ -7,6 +7,9 @@ data class RedditTopChildrenDataSub (
     @SerializedName("thumbnail")
     var thumbnail: String?,
 
+    @SerializedName("title")
+    var title: String?,
+
     @SerializedName("name")
     var name: String?
 )
