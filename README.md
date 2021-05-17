@@ -21,3 +21,5 @@ Stack that was used:
 - Android JetPack
 - SwipeRefreshLayout
 - Endless Scrolling
+
+![alt text](https://github.com/RodrigoGontijo/TallerApp/blob/main/app/device-2021-05-17-113430.png)
