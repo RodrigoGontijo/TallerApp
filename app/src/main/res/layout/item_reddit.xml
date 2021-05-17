@@ -6,7 +6,7 @@
 
         <variable
             name="redditTopModelObject"
-            type="com.example.tallerapp.model.RedditTopModel" />
+            type="com.example.tallerapp.model.RedditTopChildrenDataSub" />
 
     </data>
 
@@ -26,6 +26,8 @@
                 android:id="@+id/place_image"
                 android:layout_width="200dp"
                 android:layout_height="200dp"
+                android:centerCropEnabled="@{false}"
+                android:imageUrl="@{ redditTopModelObject.thumbnail }"
                 android:maxHeight="150dp"
                 android:scaleType="center" />
 
