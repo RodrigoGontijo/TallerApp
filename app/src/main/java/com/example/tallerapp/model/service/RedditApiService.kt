@@ -6,8 +6,8 @@ import io.reactivex.Single
 
 class RedditApiService(private val api: RedditTopApi)  {
 
-    fun getPicsList(limit: String, after: String): Single<RedditTopModel> {
-        return api.getTopApiThumbnail(limit, after)
+    fun getRedditTopList(limit: Int, after: String): Single<RedditTopModel> {
+        return api.getReedditTop(limit, after)
     }
 
 }
