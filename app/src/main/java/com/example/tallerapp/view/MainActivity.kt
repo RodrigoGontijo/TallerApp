@@ -102,8 +102,11 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.redditTopList.observe(this, Observer {
             it?.let {
+
+                var list = it.data?.childrenData
+                after = list?.get(list.size-1)?.childrenDataSub?.name.toString()
                 redditTopList.visibility = View.VISIBLE
-                picsListAdapter.updatePicList(it.data?.childrenData)
+                picsListAdapter.updatePicList(list)
             }
         })
 
