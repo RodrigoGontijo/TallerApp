@@ -1,17 +1,21 @@
 package com.example.tallerapp.view
 
-import androidx.appcompat.app.AppCompatActivity
+import android.Manifest
+import android.content.ContentValues.TAG
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.tallerapp.R
 import com.example.tallerapp.RedditTopConstants.Companion.LIMIT
 import com.example.tallerapp.RedditTopConstants.Companion.NUM_COLLUMS
-import com.example.tallerapp.model.RedditTopChildren
-import com.example.tallerapp.model.RedditTopModel
 import com.example.tallerapp.viewmodel.RedditTopViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -19,7 +23,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
 
-    private val picsListAdapter = TopRedditsAdapter(arrayListOf())
+    private val picsListAdapter = TopRedditsAdapter(arrayListOf(), this)
     private val viewModel: RedditTopViewModel by viewModel()
 
     private var isLoading = true
@@ -49,11 +53,27 @@ class MainActivity : AppCompatActivity() {
         viewModel.fetchRedditTopList(LIMIT, after)
         swipeRefresh()
         endlessScroll()
+        isStoragePermissionGranted()
     }
 
     override fun onDestroy() {
         super.onDestroy()
         removeObservers()
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            Log.v(
+                TAG,
+                "Permission: " + permissions[0] + "was " + grantResults[0]
+            )
+            //resume tasks needing this permission
+        }
     }
 
     private fun swipeRefresh() {
@@ -132,5 +152,27 @@ class MainActivity : AppCompatActivity() {
         viewModel.loading.removeObservers(this)
         viewModel.redditTopError.removeObservers(this)
         viewModel.redditTopList.removeObservers(this)
+    }
+
+    fun isStoragePermissionGranted(): Boolean {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_GRANTED
+            ) {
+                Log.v(TAG, "Permission is granted")
+                true
+            } else {
+                Log.v(TAG, "Permission is revoked")
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                    1
+                )
+                false
+            }
+        } else { //permission is automatically granted on sdk<23 upon installation
+            Log.v(TAG, "Permission is granted")
+            true
+        }
     }
 }

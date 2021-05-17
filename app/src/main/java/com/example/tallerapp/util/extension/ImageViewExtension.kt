@@ -58,7 +58,7 @@ fun ImageView.loadImage(
                     Log.e("IMAGE_EXCEPTION", "Exception " + p0.toString());
                     return false
                 }
-                override fun onResourceReady(p0: Drawable?, p1: Any?, p2: Target<Drawable>?, p3: DataSource?, p4: Boolean): Boolean {
+                override fun onResourceReady(resource: Drawable?, p1: Any?, p2: Target<Drawable>?, p3: DataSource?, p4: Boolean): Boolean {
                     Log.d(ContentValues.TAG, "OnResourceReady")
                     //do something when picture already loaded
                     return false
