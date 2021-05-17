@@ -4,5 +4,5 @@ import com.google.gson.annotations.SerializedName
 
 data class RedditTopModel (
     @SerializedName("data")
-    var data: RedditTopData?
+    var data: RedditTopChildren?
 )

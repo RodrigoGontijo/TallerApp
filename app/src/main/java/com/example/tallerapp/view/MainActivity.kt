@@ -19,7 +19,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
 
-    private val picsListAdapter = TopRedditsAdapter(RedditTopChildren(listOf()))
+    private val picsListAdapter = TopRedditsAdapter(arrayListOf())
     private val viewModel: RedditTopViewModel by viewModel()
 
     private var isLoading = true
@@ -103,7 +103,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.redditTopList.observe(this, Observer {
             it?.let {
                 redditTopList.visibility = View.VISIBLE
-                picsListAdapter.updatePicList(it.data?.children)
+                picsListAdapter.updatePicList(it.data?.childrenData)
             }
         })
 
